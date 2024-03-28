@@ -1,6 +1,6 @@
 import { IsObjectId } from '../../validator/object-id.validator';
 
-export class ObjectIdParam {
+export class BookId {
   @IsObjectId({ message: 'Invalid book id' })
   id: string;
 }

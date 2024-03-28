@@ -9,7 +9,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: school
+      MONGO_INITDB_DATABASE: bookstore
     volumes:
       - ./data:/data/db
       - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js

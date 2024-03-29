@@ -23,11 +23,11 @@ jobs:
 #        run: npm run test
       - name: jest test with Coverage
         continue-on-error: true
-        run: jest --json --outputFile=jest-results.json
+        run: jest --coverage --coverageDirectory=. --json --outputFile=coverage-results.json
 
       - name: Process jest results with default
         if: always()
         uses: im-open/process-jest-test-results@v2.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          results-file: jest-results.json
+          results-file: coverage-results.json

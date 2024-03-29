@@ -32,9 +32,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           results-file: coverage-results.json
 
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
       - name: Jest Coverage
-      - uses: ArtiomTr/jest-coverage-report-action@v2
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           coverage-file: ./coverage/coverage-summary.json
           base-coverage-file: ./coverage/coverage-summary.json
+          prnumber: ${{ steps.findPr.outputs.number }}
 

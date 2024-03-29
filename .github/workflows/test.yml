@@ -32,9 +32,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           results-file: coverage-results.json
 
-      - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@main
+      - name: Jest Coverage
+      - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          coverage-summary-path: ./coverage/coverage-summary.json
-      - name: Jest Coverage Comment
-        uses: MishaKav/jest-coverage-comment@main
+          coverage-file: ./coverage/coverage-summary.json
+          base-coverage-file: ./coverage/coverage-summary.json
+

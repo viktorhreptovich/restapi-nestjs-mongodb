@@ -1,4 +1,4 @@
-name: coverage
+name: test
 on:
   push:
     branches: [ main, master ]
@@ -31,3 +31,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           results-file: coverage-results.json
+
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main
+        with:
+          coverage-summary-path: ./coverage/coverage-summary.json
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main

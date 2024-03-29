@@ -23,7 +23,7 @@ jobs:
 #        run: npm run test
       - name: jest test with Coverage
         continue-on-error: true
-        run: jest --coverage --coverageDirectory=. --json --outputFile=coverage-results.json
+        run: npm run test:cov
 
       - name: Process jest results with default
         if: always()

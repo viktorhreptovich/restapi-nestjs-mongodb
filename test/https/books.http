@@ -3,7 +3,7 @@ GET http://localhost:3000/books
 Accept: application/json
 
 ### Find books by keyword
-GET http://localhost:3000/books?keyword=Tolkien
+GET http://localhost:3000/books?keyword=Lord
 Accept: application/json
 
 ### Find books paginated

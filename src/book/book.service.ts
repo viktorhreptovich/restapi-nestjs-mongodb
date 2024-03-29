@@ -3,8 +3,8 @@ import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { Book } from './schemas/book.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Query as ExpressQuery } from 'express-serve-static-core';
 import { User } from '../auth/schemas/user.schema';
+import { Query } from 'express-serve-static-core';
 
 @Injectable()
 export class BookService {
@@ -13,7 +13,7 @@ export class BookService {
   ) {
   }
 
-  async findAll(query: ExpressQuery): Promise<Book[]> {
+  async findAll(query: Query): Promise<Book[]> {
 
     const resultPerPage = 2;
     const currentPage = Number(query.page) || 1;
@@ -21,13 +21,9 @@ export class BookService {
 
 
     const keyword = query.keyword ? {
-      title: {
-        $regex: query.keyword,
-        $options: 'i'
-      }
+      title: new RegExp(`${query.keyword}`, 'i')
     } : {};
-
-    return this.bookModel.find({ ...keyword }).limit(resultPerPage).skip(skip);
+    return this.bookModel.find(keyword).limit(resultPerPage).skip(skip);
   }
 
   async findById(id: string): Promise<Book> {

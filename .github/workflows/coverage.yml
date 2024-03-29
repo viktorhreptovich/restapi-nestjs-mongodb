@@ -9,11 +9,24 @@ on:
 jobs:
   coverage:
     runs-on: ubuntu-latest
+    contents: read
+    checks: write
+    statuses: write
+    pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - name: Install dependencies
-        run: npm install
-      - name: run test
-        run: npm run test
+#      - uses: actions/setup-node@v4
+#      - name: Install dependencies
+#        run: npm install
+#      - name: run test
+#        run: npm run test
+      - name: jest test with Coverage
+        continue-on-error: true
+        run: jest --json --outputFile=jest-results.json
 
+      - name: Process jest results with default
+        if: always()
+        uses: im-open/process-jest-test-results@v2.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          results-file: 'jest-results.json

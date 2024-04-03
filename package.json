@@ -76,7 +76,7 @@
         {
           "publicPath": "./html-report",
           "filename": "index.html",
-          "openReport": true
+          "openReport": false
         }
       ]
     ],

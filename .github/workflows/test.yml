@@ -13,7 +13,7 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: playwright-report
+      name: jest-report
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4

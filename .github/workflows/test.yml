@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
-          name: html-report
+          name: github-pages
           path: html-report
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -37,5 +37,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: html-report
+          artifact_name: github-pages
         if: always()

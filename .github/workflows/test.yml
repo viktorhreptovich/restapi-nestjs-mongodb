@@ -24,18 +24,16 @@ jobs:
         run: npm install
       - name: jest test
         run: npm run test
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        if: always()
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
           name: github-pages
           path: html-report
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        if: always()
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages
         if: always()

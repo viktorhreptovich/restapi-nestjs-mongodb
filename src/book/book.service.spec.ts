@@ -22,6 +22,16 @@ describe('BookService', () => {
     'category': Category.FANTASY
   };
 
+  const mockBook2 = {
+    _id: '65fbfa0359608937e53a26cc',
+    user: '66055c6cb087d44015b917b4',
+    'title': 'The Last of the Mohicans',
+    'description': 'This book is about the last of the Mohicans',
+    'author': 'Fenimore Cooper',
+    'price': 36,
+    'category': Category.FANTASY
+  };
+
   const mockUser = {
     _id: '66055c6cb087d44015b917b4',
     'name': 'John',
@@ -33,7 +43,8 @@ describe('BookService', () => {
     create: jest.fn(),
     findById: jest.fn(),
     findByIdAndUpdate: jest.fn(),
-    findByIdAndDelete: jest.fn()
+    findByIdAndDelete: jest.fn(),
+    limit: jest.fn()
   };
 
   beforeEach(async () => {
@@ -51,24 +62,75 @@ describe('BookService', () => {
     model = module.get<Model<Book>>(getModelToken(Book.name));
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should be defined', () => {
+    expect(bookService).toBeDefined();
+    expect(model).toBeDefined();
+  });
+
   describe('findAll', () => {
     it('should return an array of books', async () => {
       const query = { page: '1', keyword: 'Lord' };
-      jest
-        .spyOn(model, 'find')
-        .mockImplementation(
-          () =>
-            ({
-              limit: () => ({
-                skip: jest.fn().mockResolvedValue([mockBook])
-              })
-            } as any)
-        );
+      const mockLimitSkipImplementation: any = () => ({
+        limit: jest.fn().mockImplementationOnce(() => ({
+            skip: jest.fn().mockResolvedValueOnce([mockBook])
+          })
+        )
+      });
+
+      jest.spyOn(model, 'find').mockImplementationOnce(mockLimitSkipImplementation);
 
       const result = await bookService.findAll(query);
 
       expect(model.find).toHaveBeenCalledWith({ title: new RegExp('Lord', 'i') });
       expect(result).toEqual([mockBook]);
+    });
+
+    it('should return an array of books query is not provided', async () => {
+      const query = {};
+
+      const skip = jest.fn().mockResolvedValue([mockBook, mockBook2]);
+      const limit = jest.fn().mockImplementation(() => ({
+          skip: skip
+        })
+      );
+      const mockLimitSkipImplementation: any = () => ({
+        limit: limit
+      });
+
+      jest.spyOn(model, 'find').mockImplementation(mockLimitSkipImplementation);
+
+      const result = await bookService.findAll(query);
+      expect(model.find).toHaveBeenCalledTimes(1);
+      expect(limit).toHaveBeenCalledWith(2);
+      expect(skip).toHaveBeenCalledWith(0);
+
+      expect(result).toEqual([mockBook, mockBook2]);
+    });
+
+    it('should return an array of books if page more than 1', async () => {
+      const query = { 'page': '2' };
+      const skip = jest.fn().mockResolvedValue([mockBook]);
+      const limit = jest.fn().mockImplementation(() => ({
+          skip: skip
+        })
+      );
+      const mockLimitSkipImplementation: any = () => ({
+        limit: limit
+      });
+
+      jest.spyOn(model, 'find').mockImplementation(mockLimitSkipImplementation);
+
+      const result = await bookService.findAll(query);
+      expect(model.find).toHaveBeenCalledTimes(1);
+      expect(limit).toHaveBeenCalledWith(2);
+      expect(skip).toHaveBeenCalledWith(2);
+
+      expect(result).toEqual([mockBook]);
+
     });
   });
 

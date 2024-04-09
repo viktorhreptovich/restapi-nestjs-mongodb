@@ -5,7 +5,8 @@ import * as fs from 'fs';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  console.log(process.env.DB_URI);
+  const app = await NestFactory.create(AppModule.register());
 
   app.useGlobalPipes(new ValidationPipe());
 

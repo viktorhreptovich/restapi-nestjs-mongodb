@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  unit-test:
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -33,6 +33,36 @@ jobs:
         with:
           name: github-pages
           path: html-report
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        if: always()
+  e2e-test:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: jest-report
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm install
+      - name: jest test
+        run: npm run test:e2e
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        if: always()
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        if: always()
+        with:
+          name: github-pages
+          path: html-report-e2e
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

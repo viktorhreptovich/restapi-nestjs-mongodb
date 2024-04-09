@@ -14,7 +14,7 @@ jobs:
       id-token: write
     environment:
       name: jest-report
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}/html-report-unit
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
-          name: github-pages
+          name: html-report-unit
           path: html-report-unit
 
   e2e-test:
@@ -41,7 +41,7 @@ jobs:
       id-token: write
     environment:
       name: jest-report
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}/html-report-e2e
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         if: always()
         with:
-          name: github-pages-e2e
+          name: html-report-e2e
           path: html-report-e2e
 
   deploy-reports:

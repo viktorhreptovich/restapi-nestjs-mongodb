@@ -79,7 +79,7 @@
       [
         "jest-html-reporters",
         {
-          "publicPath": "./html-report",
+          "publicPath": "./ html-report-unit",
           "filename": "index.html",
           "openReport": false
         }

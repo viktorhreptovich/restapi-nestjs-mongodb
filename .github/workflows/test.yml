@@ -27,12 +27,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
         if: always()
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: html-report-unit
           path: html-report-unit
+          retention-days: 1
 
   e2e-test:
     runs-on: ubuntu-latest
@@ -54,12 +55,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
         if: always()
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: html-report-e2e
           path: html-report-e2e
+          retention-days: 1
 
   deploy-reports:
     environment:

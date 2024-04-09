@@ -14,7 +14,7 @@ jobs:
       id-token: write
     environment:
       name: jest-report
-      url: ${{ steps.deployment.outputs.page_url }}/html-report-unit
+      url: https://viktorhreptovich.github.io/restapi-nestjs-mongodb/html-report-unit
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -41,7 +41,7 @@ jobs:
       id-token: write
     environment:
       name: jest-report
-      url: ${{ steps.deployment.outputs.page_url }}/html-report-e2e
+      url: https://viktorhreptovich.github.io/restapi-nestjs-mongodb/html-report-e2e
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

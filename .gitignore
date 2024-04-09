@@ -57,3 +57,4 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 /data/
 /html-report/
 /html-report-e2e/
+/html-report-unit/

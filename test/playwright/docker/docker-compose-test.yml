@@ -19,10 +19,8 @@ services:
     image: bookstore
     container_name: bookstore${CONTAINER_NAME}
     build:
-      context: ../../..
-      dockerfile: ../Dockerfile
-    env_file:
-      - ../../../.env.test
+      context: ../../../
+      dockerfile: Dockerfile
     ports:
       - ${APP_PORT}:3000
     environment:

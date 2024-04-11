@@ -63,7 +63,7 @@ jobs:
       pages: write
       id-token: write
     environment:
-      name: jest-report
+      name: playwright-report
       url: https://viktorhreptovich.github.io/restapi-nestjs-mongodb/playwright-report
     steps:
       - uses: actions/checkout@v4
@@ -72,6 +72,8 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
+      - name: Build services
+        run: docker-compose -f test/playwright/docker/docker-compose-test.yml build
       - name: Playwright test
         run: npx playwright test
       - name: Upload report

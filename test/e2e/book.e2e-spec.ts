@@ -43,6 +43,8 @@ describe('Book Controller (e2e)', () => {
     };
     let token;
 
+    app.getHttpServer()
+
     await request(app.getHttpServer())
       .get('/auth/login')
       .send(user)

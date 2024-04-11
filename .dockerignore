@@ -1,0 +1,9 @@
+node_modules
+coverage
+.github
+dist
+html-report-e2e
+playwright-report
+test-results
+test
+tests

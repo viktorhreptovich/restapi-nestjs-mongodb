@@ -12,4 +12,11 @@ db.createUser(
   },
 );
 
+db.createCollection('users');
+db.users.insertOne({
+  name: 'John',
+  email: 'jhon@example.com',
+  password: '$2a$10$OtVvtnB5PA1iBZy/myfVauV6MHOhjZRLKHI.dLo1QR248W7djWcZC'
+});
+
 print('End #################################################################');

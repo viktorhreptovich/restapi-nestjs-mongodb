@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   mongodb:
     image: mongo
     restart: always
@@ -9,7 +10,19 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: bookstore
     volumes:
       - ./data:/data/db
       - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
 
+  bookstore:
+    image: bookstore
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DB_URI: mongodb://admin:password@mongodb:27017
+    depends_on:
+      - mongodb

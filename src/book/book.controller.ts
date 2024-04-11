@@ -1,22 +1,10 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-  Put,
-  Query,
-  Req,
-  UseGuards
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from '@nestjs/common';
 import { BookService } from './book.service';
 import { Book } from './schemas/book.schema';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { Query as ExpressQuery } from 'express-serve-static-core';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiResponse } from '@nestjs/swagger';
 import { BookId } from './params/book.id';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -44,7 +32,7 @@ export class BookController {
     @Body() book: CreateBookDto,
     @Req() req: any
   ): Promise<Book> {
-    return await this.bookService.create(book,req.user);
+    return await this.bookService.create(book, req.user);
   }
 
   @Put(':id')

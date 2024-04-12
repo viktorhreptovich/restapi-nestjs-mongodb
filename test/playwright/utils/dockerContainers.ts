@@ -19,7 +19,6 @@ export async function dockerContainers(name: string, initScript?: string): Promi
       .withEnvironment({ APP_PORT: freePortApp.toString() })
       .withEnvironment({ CONTAINER_NAME: name })
       .up();
-  console.log(`container bookstore port: ${container.getContainer(`bookstore${name}`).getFirstMappedPort()}`);
   process.env.APP_URI = `http://localhost:${container.getContainer(`bookstore${name}`).getFirstMappedPort()}`;
   return container;
 }

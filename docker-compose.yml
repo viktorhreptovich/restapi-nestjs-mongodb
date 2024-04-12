@@ -23,6 +23,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DB_URI: mongodb://admin:password@mongodb:27017
+      DB_URI: mongodb://admin:password@mongodb:27017/bookstore
     depends_on:
       - mongodb

@@ -17,7 +17,7 @@ Accept: application/json
 ### Create new book
 POST http://localhost:3000/books
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDU1YzZjYjA4N2Q0NDAxNWI5MTdiNCIsImlhdCI6MTcxMTYyODYwNCwiZXhwIjoxNzExODg3ODA0fQ.RweDsCb1dYwrvXlhtwwJua2IcxFQiw5UFIKlM8tSW9k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MThiNjRlNjA3NzQ0ZjAzYWZiYjM1NiIsImlhdCI6MTcxMjg5NTU2NiwiZXhwIjoxNzEzMTU0NzY2fQ.lratbJNP_4cQnBZpIQUb6RUntR6UZKaIetbSr1nOexA
 
 {
   "title": "Lord of the Rings",

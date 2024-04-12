@@ -1,24 +1,14 @@
 import { test } from '../fixtures/fixtures';
-import { StartedDockerComposeEnvironment } from 'testcontainers';
 import { faker } from '@faker-js/faker';
-import { dockerContainers } from '../utils/dockerContainers';
 
 
-let container: StartedDockerComposeEnvironment;
-
-test.beforeAll('Start containers', async ({}, workerInfo) => {
-  test.setTimeout(60000);
-  container = await dockerContainers(workerInfo.workerIndex.toString(), 'mongo-init-auth.js');
-});
-
-test.afterAll('Stop containers', async () => {
-  await container.down();
+test.use({
+  initDatabaseScript: 'mongo-init-auth.js'
 });
 
 test.describe('Auth service', () => {
 
-  test('(GET) - Login a user', async ({ authService }) => {
-    console.log(`Test 1 ${process.env.APP_URI}`);
+  test('GET /auth/login - Successful user login with valid credentials', async ({ authService }) => {
     const user = {
       email: 'jhon@example.com',
       password: '123456'
@@ -31,8 +21,7 @@ test.describe('Auth service', () => {
     await response.jsonShouldHaveProperty('token');
   });
 
-  test('(POST) - Register a user', async ({ authService }) => {
-    console.log(`Test 2 ${process.env.APP_URI}`);
+  test('POST /auth/signup - Successful register a new user', async ({ authService }) => {
     const username = faker.internet.userName();
     const email = `${username}@example.com`;
     const password = faker.internet.password({ length: 6 });
@@ -47,6 +36,20 @@ test.describe('Auth service', () => {
     await response.shouldBeOk();
     await response.shouldHaveResponseStatus(201);
     await response.jsonShouldHaveProperty('token');
+  });
+
+  test('POST /auth/signup - Register user with existing email should fail', async ({ authService }) => {
+    const userWithExistingEmail = {
+      name: 'John Doe',
+      email: 'jhon@example.com',
+      password: '123456'
+    };
+
+    const response = await authService.signup(userWithExistingEmail);
+
+    await response.shouldBeFailed();
+    await response.shouldHaveResponseStatus(409);
+    await response.shouldHaveError('Email already in use');
   });
 });
 

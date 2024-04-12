@@ -24,6 +24,6 @@ services:
     ports:
       - ${APP_PORT}:3000
     environment:
-      DB_URI: mongodb://admin:password@mongodb:27017/bookstore-test
+      DB_URI: mongodb://admin:password@mongodb:27017/${MONGO_INITDB_DATABASE}
     depends_on:
       - mongodb

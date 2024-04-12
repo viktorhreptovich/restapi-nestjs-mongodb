@@ -13,8 +13,7 @@ export class DockerServices {
   private appContainerName: string;
   private initDataBaseScript: string;
 
-  constructor() {
-
+  constructor(private workerIndex: number) {
     this.dockerComposeEnvironment = new DockerComposeEnvironment('.', 'test/playwright/docker/docker-compose-test.yml');
   }
 
@@ -29,15 +28,16 @@ export class DockerServices {
   }
 
   async up() {
+    const portOffset = this.workerIndex * 5;
     this.freePortDb = await pickPort({
       type: 'tcp',
-      minPort: 27017,
-      maxPort: 27037
+      minPort: 27000 + portOffset,
+      maxPort: 27005 + portOffset
     });
     this.freePortApp = await pickPort({
       type: 'tcp',
-      minPort: 3001,
-      maxPort: 3020
+      minPort: 3000 + portOffset,
+      maxPort: 3005 + portOffset
     });
     this.mongodbContainerName = `mongodb${this.freePortApp}`;
     this.appContainerName = `bookstore${this.freePortApp}`;

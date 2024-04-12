@@ -24,6 +24,7 @@ test.describe('Book service', () => {
   test('(GET) - Error get book by id when id is invalid', async ({ bookService }) => {
     const response = await bookService.getBookById('invalid');
 
+    await response.shouldBeFailed();
     await response.shouldHaveBadRequestError('Invalid book id');
   });
 

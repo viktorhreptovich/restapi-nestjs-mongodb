@@ -32,7 +32,7 @@ db.books.insertOne(
     title: 'Lord of the Rings',
     description: 'This is the description',
     author: 'J.R.R. Tolkien',
-    price: 100,
+    price: 101,
     category: 'fantasy',
     user: ObjectId('6618b64e607744f03afbb356'),
     createdAt: new Date('2024-04-12T04:21:44.817Z'),

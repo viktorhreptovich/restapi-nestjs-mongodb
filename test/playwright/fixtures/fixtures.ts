@@ -18,7 +18,7 @@ export const test = base.extend<Options & Fixtures>({
   initDatabaseScript: ['mongo-init.js', { option: true, scope: 'test' }],
 
   dockerServices: [async ({ initDatabaseScript }, use, testInfo) => {
-    const dockerServices = await new DockerServices()
+    const dockerServices = await new DockerServices(testInfo.workerIndex)
       .withInitDatabaseScript(initDatabaseScript)
       .up();
     await use(dockerServices);

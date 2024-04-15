@@ -26,12 +26,25 @@ export class TestApiResponse {
   }
 
   async jsonShouldHaveProperty(property: string, propertyValue?: any) {
-    await test.step(`Response body should have property '${property}'`, async () => {
-      if (propertyValue) {
+
+    if (propertyValue) {
+      await test.step(`Response body should have property '${property}' = '${propertyValue}'`, async () => {
         expect(await this.response.json(), `Response body should have property '${property}' = '${propertyValue}'`)
+
           .toHaveProperty(property, propertyValue);
-      } else {
+      });
+    } else {
+      await test.step(`Response body should have property '${property}'`, async () => {
         expect(await this.response.json(), `Response body should have property '${property}'`).toHaveProperty(property);
+      });
+    }
+  }
+
+  async shouldContainJsonArray(arrayOfObjects: any[]) {
+    await test.step('Response body should contain json', async () => {
+      const responseJson = await this.response.json();
+      for (const element of arrayOfObjects) {
+        expect(responseJson).toContainEqual(expect.objectContaining(element));
       }
     });
   }

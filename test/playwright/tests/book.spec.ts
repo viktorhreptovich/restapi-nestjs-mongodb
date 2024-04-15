@@ -7,6 +7,33 @@ test.use({
 });
 test.describe('Book service', () => {
 
+  test('GET - Successful get all books', async ({ bookService }) => {
+
+    const response = await bookService.getAllBooks();
+
+    await response.shouldBeOk();
+    await response.shouldHaveResponseStatus(200);
+    await response.jsonShouldHaveProperty('length', 2);
+    await response.shouldContainJsonArray(
+      [
+        {
+          title: 'Lord of the Rings',
+          author: 'J.R.R. Tolkien',
+          description: 'This is the description',
+          price: 101,
+          category: 'fantasy'
+        },
+        {
+          title: 'The Hobbit',
+          author: 'J.R.R. Tolkien',
+          description: 'This is the description of the Hobbit',
+          price: 99,
+          category: 'fantasy'
+        }
+      ]
+    );
+  });
+
   test('GET - Successful get book by id', async ({ bookService }) => {
 
     const response = await bookService.getBookById('6618b6d8607744f03afbb359');

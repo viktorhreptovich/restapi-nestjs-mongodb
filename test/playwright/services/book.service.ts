@@ -11,6 +11,13 @@ export class BookService {
 
   }
 
+  async getAllBooks(): Promise<TestApiResponse> {
+    let response: APIResponse;
+    await test.step('GET /books', async () => {
+      response = await this.request.get(`${this.APP_URI}/books`);
+    });
+    return new TestApiResponse(response);
+  }
   async getBookById(id: string): Promise<TestApiResponse> {
     let response: APIResponse;
     await test.step('GET /booos/{id}', async () => {

@@ -26,7 +26,7 @@ db.users.insertOne(
 );
 
 db.createCollection('books');
-db.books.insertOne(
+db.books.insertMany([
   {
     _id: ObjectId('6618b6d8607744f03afbb359'),
     title: 'Lord of the Rings',
@@ -38,7 +38,31 @@ db.books.insertOne(
     createdAt: new Date('2024-04-12T04:21:44.817Z'),
     updatedAt: new Date('2024-04-12T04:21:44.817Z'),
     __v: 0
+  },
+  {
+    _id: ObjectId('6618b6d8607744f03afbb340'),
+    title: 'The Hobbit',
+    description: 'This is the description of the Hobbit',
+    author: 'J.R.R. Tolkien',
+    price: 99,
+    category: 'fantasy',
+    user: ObjectId('6618b64e607744f03afbb356'),
+    createdAt: new Date('2024-04-12T04:22:44.817Z'),
+    updatedAt: new Date('2024-04-12T04:22:44.817Z'),
+    __v: 0
+  },
+  {
+    _id: ObjectId('6618b6d8607744f03afbb345'),
+    title: 'The Earthsea Quartet',
+    description: 'This is the description of the Earthsea Quartet',
+    author: 'Ursula K. Le Guin',
+    price: 101,
+    category: 'adventure',
+    user: ObjectId('6618b64e607744f03afbb356'),
+    createdAt: new Date('2024-04-12T04:23:44.817Z'),
+    updatedAt: new Date('2024-04-12T04:23:44.817Z'),
+    __v: 0
   }
-);
+]);
 
 print('End #################################################################');

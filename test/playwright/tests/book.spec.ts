@@ -43,7 +43,7 @@ test.describe('Book service', () => {
     await response.jsonShouldHaveProperty('title', 'Lord of the Rings');
     await response.jsonShouldHaveProperty('author', 'J.R.R. Tolkien');
     await response.jsonShouldHaveProperty('description', 'This is the description');
-    await response.jsonShouldHaveProperty('price', 100);
+    await response.jsonShouldHaveProperty('price', 101);
     await response.jsonShouldHaveProperty('category', 'fantasy');
 
   });

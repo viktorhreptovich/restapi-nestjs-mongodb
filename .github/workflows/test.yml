@@ -72,8 +72,8 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm install
-#      - name: Build services
-#        run: docker-compose -f test/playwright/docker/docker-compose-test.yml build
+      - name: Build services
+        run: docker compose -f test/playwright/docker/docker-compose-test.yml build
       - name: Playwright test
         run: npx playwright test
       - name: Upload report
